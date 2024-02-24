@@ -1,8 +1,9 @@
-from src_terrain_generation.bblyn_perlin import generate_perlin_noise_2d
+from src_terrain_generation.bblyn_perlin import generate_perlin
 import numpy as np
 from collections import deque
 from itertools import product
 import random
+
 
 
 # Auxillary Function allowing `_get_cluster` to process neighbouring cells.
@@ -42,7 +43,7 @@ def clusterize(heightmap_: list[list[int]], coordinates: set[tuple[int, int]] = 
 
 # Function to generate a terrain heightmap, with rivers, mountains using Perlin Noise as a base, uses numpy for faster generation speed.
 def generate_heightmap(shape: tuple[int, int], res: tuple[int, int] = (5, 5), tileable: tuple[bool, bool] = (True, True)) -> dict[str:list[list[int]]]:
-    perlin_noise = np.interp((perlin_noise := generate_perlin_noise_2d(shape, res, tileable)), (perlin_noise.min(), perlin_noise.max()), (0, 255)).astype(int)
+    perlin_noise = np.interp((perlin_noise := generate_perlin(shape, res, tileable)), (perlin_noise.min(), perlin_noise.max()), (0, 255)).astype(int)
     height_map = np.interp(np.where(perlin_noise < 100, 100 + (100 - perlin_noise), perlin_noise), (perlin_noise.min(), perlin_noise.max()), (0, 255)).astype(int)
     [height_map.__setitem__((row, column), perlin_noise[row, column]) for cluster in (clusterize(perlin_noise)) if (cindex := int(random.randrange(123, 412) * 1.21)) % 10 < 6 for row, column in cluster]
     return height_map
