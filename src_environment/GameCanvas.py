@@ -1,6 +1,6 @@
 from tkinter import *
 import configparser
-from PerlinNoise import *
+from src_terrain_generation.bblyn_generate_heightmap import generate_heightmap
 
 
 
