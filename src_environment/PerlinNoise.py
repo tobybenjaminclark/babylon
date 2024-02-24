@@ -70,9 +70,9 @@ def _get_cluster(hmap: np.ndarray, row: int, col: int, threshold: int) -> list[t
         cluster.append((current_row, current_col))
         for dr, dc in directions:
             new_row, new_col = current_row + dr, current_col + dc
-            if 0 <= new_row < rows and 0 <= new_col < cols and not visited[new_row, new_col] and hmap[new_row, new_col] < threshold:
-                queue.append((new_row, new_col))
-                visited[new_row, new_col] = True
+            if not(0 <= new_row < rows and 0 <= new_col < cols and not visited[new_row, new_col] and hmap[new_row, new_col] < threshold): continue
+            queue.append((new_row, new_col))
+            visited[new_row, new_col] = True
     return cluster
 
 def clusterize(heightmap_: list[list[int]], coordinates: set[tuple[int, int]] = set(), clusters: list[tuple[int, int]] = []) -> list[tuple[int, int]]:
