@@ -1,12 +1,11 @@
 import numpy as np
 
-# Function to generate a forest map of true/false values from a heightmap.
-def generate_forestmap(heightmap):
+def generate_resource_map(heightmap, forestmap, rockmap):
     heightmap_array = np.array(heightmap)
-    forestmap = np.zeros_like(heightmap_array, dtype=bool)
+    forestmap = np.zeros_like(heightmap_array, dtype=int)
 
     num_clusters = 6
-    cluster_density = 0.5
+    cluster_density = 0.2
     cluster_radius = 80
 
     for _ in range(num_clusters):
@@ -18,6 +17,6 @@ def generate_forestmap(heightmap):
         probabilities = np.exp(-distances / cluster_radius) * cluster_density
         probabilities *= valid_heights
 
-        forestmap |= np.random.rand(*forestmap.shape) < probabilities.reshape(forestmap.shape)
+        forestmap |= (np.random.rand(*forestmap.shape) < probabilities.reshape(forestmap.shape)).astype(int)
 
     return forestmap

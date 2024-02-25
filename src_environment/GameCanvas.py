@@ -5,6 +5,7 @@ from src_terrain_generation.bblyn_generate_heightmap import generate_heightmap
 from src_terrain_generation.bblyn_generate_forestmap import generate_forestmap
 from src_terrain_generation.bblyn_generate_rockmap import generate_rockmap
 from src_terrain_generation.bblyn_generate_mountain import generate_mountain
+from src_terrain_generation.bblyn_generate_resourcemap import generate_resource_map
 
 # Define color ranges
 colour_ranges = [
@@ -44,6 +45,7 @@ class GameCanvas(Canvas):
         normalized_map = generate_mountain(normalized_map, 250)
         forest_map = generate_forestmap(normalized_map)
         rockmap = generate_rockmap(normalized_map)
+        resources = generate_resource_map(normalized_map, forest_map, rockmap)
 
 
         for y in range(0, self.height, 5):
@@ -70,6 +72,8 @@ class GameCanvas(Canvas):
                 if(forest_map[x, y]): self.create_oval(x-2, y-2, x+7, y+7, fill="forest green", outline="dark green", width = 4)
                 if(rockmap[x, y]):
                     self.create_oval(x-2, y-2, x+7, y+7, fill="PeachPuff3", outline="seashell4", width = 2)
+                elif(resources[x, y] > 0):
+                    self.create_oval(x-2, y-2, x+7, y+7, fill="yellow", outline="red", width = 2)
 
 
     def load_settings(self) -> None:

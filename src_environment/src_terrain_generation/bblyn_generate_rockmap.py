@@ -1,7 +1,7 @@
 import numpy as np
 
 # Function to generate a rock map of true/false values from a heightmap.
-def generate_rockmap(heightmap) -> np.array[True|False]:
+def generate_rockmap(heightmap):
     heightmap_array = np.array(heightmap)
     rockmap = np.zeros_like(heightmap_array, dtype = bool)
 
