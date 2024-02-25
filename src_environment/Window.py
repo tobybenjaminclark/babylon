@@ -1,11 +1,34 @@
 from GameCanvas import *
 from tkinter import *
 import configparser
+import random
 
-def move(master, canvas, object) -> None:
+def move(master, canvas, object):
     canvas.move(object, 0.5, 0)
     master.after(1, lambda: move(master, canvas, object))
-    
+
+def move_tribe(master, canvas, tribe_object, target_x, target_y, speed=1):
+    current_x, current_y, _, _ = canvas.coords(tribe_object)
+
+    dx = target_x - current_x
+    dy = target_y - current_y
+
+    distance = (dx**2 + dy**2)**0.5
+
+    if distance > speed:
+        distance_ratio = speed / distance
+        new_x = current_x + dx * distance_ratio
+        new_y = current_y + dy * distance_ratio
+
+        canvas.coords(tribe_object, new_x, new_y, new_x + 10, new_y + 10)
+
+        master.after(10, lambda: move_tribe(master, canvas, tribe_object, target_x, target_y, speed))
+    else:
+        # If distance is less than speed, the tribe has reached the target
+        canvas.coords(tribe_object, target_x, target_y, target_x + 10, target_y + 10)
+
+        # Schedule a new random target after a short delay
+        master.after(2000, lambda: move_tribe(master, canvas, tribe_object, random.randint(0, canvas.winfo_width() - 10), random.randint(0, canvas.winfo_height() - 10), speed))
 
 class Window(Tk):
     def __init__(self, *args, **kwargs) -> None:
@@ -27,11 +50,19 @@ class Window(Tk):
 
         self.canvas.render_map()
 
-        self.x = 100
-        self.y = 100
-        self.tribe = self.canvas.create_oval(self.x, self.y, self.x + 10, self.y + 10, fill = "orange")
-        
-        self.after(1, lambda: move(self, self.canvas, self.tribe))
+        # Create a list to store tribe objects
+        self.tribes = []
+
+        for _ in range(300):
+            x = random.randint(0, self.winfo_screenwidth() - 10)
+            y = random.randint(0, self.winfo_screenheight() - 10)
+            tribe = self.canvas.create_oval(x, y, x + 10, y + 10, fill="orange")
+            self.tribes.append(tribe)
+
+            # Start the movement of each tribe towards a random location
+            random_x = random.randint(0, self.winfo_screenwidth() - 10)
+            random_y = random.randint(0, self.winfo_screenheight() - 10)
+            move_tribe(self, self.canvas, tribe, random_x, random_y)
 
         self.mainloop()
 
