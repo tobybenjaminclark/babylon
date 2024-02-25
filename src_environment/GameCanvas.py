@@ -6,6 +6,24 @@ from src_terrain_generation.bblyn_generate_forestmap import generate_forestmap
 from src_terrain_generation.bblyn_generate_rockmap import generate_rockmap
 from src_terrain_generation.bblyn_generate_mountain import generate_mountain
 
+# Define color ranges
+colour_ranges = [
+    (0, 'cyan3'),
+    (30, 'cyan2'),
+    (60, 'aquamarine'),
+    (90, 'NavajoWhite3'),
+    (92, 'NavajoWhite2'),
+    (100, '#8aad6f'),
+    (110, '#779e59'),
+    (140, '#669144'),
+    (190, '#5b853a'),
+    (256, '#667a57'),
+    (285, '#777a57'),
+    (335, '#706f55'),
+    (385, '#59594d'),
+    (435, '#57554f'),
+]
+
 class GameCanvas(Canvas):
 
     def __init__(self, *args, **kwargs) -> None:
@@ -17,12 +35,13 @@ class GameCanvas(Canvas):
         self.update()
 
     def render_map(self) -> None:
+        global colour_ranges
         # Set the resolution and tileability for the Perlin noise
         shape = (self.width, self.height)
         # Generate Perlin noise
         normalized_map = generate_heightmap((self.width, self.height))
 
-        normalized_map = generate_mountain(normalized_map, 150)
+        normalized_map = generate_mountain(normalized_map, 250)
         forest_map = generate_forestmap(normalized_map)
         rockmap = generate_rockmap(normalized_map)
 
@@ -32,21 +51,18 @@ class GameCanvas(Canvas):
                 # Use the Perlin noise values to determine the color
                 color_value = int(normalized_map[x, y])
 
-                fill_colour = 'red'
-                # Define color ranges
-                if 0 <= color_value < 30: fill_colour = 'cyan3'
-                elif 30 <= color_value < 60: fill_colour = 'cyan2'
-                elif 60 <= color_value < 90: fill_colour = 'aquamarine'
-                elif 90 <= color_value < 92: fill_colour = 'NavajoWhite3'
-                elif 92 <= color_value < 100: fill_colour = 'NavajoWhite2'
-                elif 100 <= color_value < 150: fill_colour = 'olive drab'
-                elif 150 <= color_value < 255: fill_colour = 'dark olive green'
-                elif 255 <= color_value < 315: fill_colour = 'NavajoWhite3'
-                elif 315 <= color_value < 400: fill_colour = 'NavajoWhite4'
-                else: fill_colour = 'sienna4'
+                # Set default color
+                fill_colour = '#57554f'
+
+                # Determine the appropriate fill color based on the color_value
+                for threshold, color in colour_ranges:
+                    if color_value < threshold:
+                        fill_colour = color
+                        break
 
                 # Create the rectangle with the determined fill color
                 self.create_rectangle(x, y, x + 5, y + 5, fill=fill_colour, outline=fill_colour)
+
 
 
         for y in range(0, self.height, 5):

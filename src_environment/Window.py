@@ -20,7 +20,7 @@ class Window(Tk):
 
     def load_settings(self) -> None:
         config: configparser.ConfigParser = configparser.ConfigParser()
-        config.read('settings.ini')
+        config.read('settings.ini') 
 
         fullscreen_setting = config.getboolean('Window', 'fullscreen', fallback=False)
         self.attributes('-fullscreen', fullscreen_setting)
