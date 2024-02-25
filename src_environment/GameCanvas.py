@@ -25,17 +25,18 @@ class GameCanvas(Canvas):
                 # Use the Perlin noise values to determine the color
                 color_value = int(normalized_map[x, y])
 
-                # Interpolate between light blue and green
-                blue_component = 255 - color_value
-                green_component = color_value
+                fill_colour = 'red'
+                # Define color ranges
+                if 0 <= color_value < 30: fill_colour = 'seagreen3'
+                elif 30 <= color_value < 60: fill_colour = 'seagreen2'
+                elif 60 <= color_value < 90: fill_colour = 'seagreen1'
+                elif 90 <= color_value < 100: fill_colour = 'cornsilk2'
+                elif 100 <= color_value < 140: fill_colour = 'yellow green'
+                else: fill_colour = 'olive drab'
 
-                # Ensure the RGB values are in the valid range [0, 255]
-                blue_component = max(0, min(255, blue_component))
-                green_component = max(0, min(255, green_component))
+                # Create the rectangle with the determined fill color
+                self.create_rectangle(x, y, x + 5, y + 5, fill=fill_colour, outline=fill_colour)
 
-                fill_color = f'#00{green_component:02x}{blue_component:02x}'
-
-                self.create_rectangle(x, y, x + 5, y + 5, fill=fill_color, outline=fill_color)
 
         for y in range(0, self.height, 5):
             for x in range(0, self.width, 5):
