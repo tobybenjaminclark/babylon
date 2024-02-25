@@ -35,9 +35,12 @@ class GameCanvas(Canvas):
 
                 fill_color = f'#00{green_component:02x}{blue_component:02x}'
 
+                self.create_rectangle(x, y, x + 5, y + 5, fill=fill_color, outline=fill_color)
+
+        for y in range(0, self.height, 5):
+            for x in range(0, self.width, 5):
+                if(forest_map[x, y]): self.create_oval(x-2, y-2, x+7, y+7, fill="dark green", outline="black")
                 
-                if(forest_map[x, y]): self.create_rectangle(x, y, x + 5, y + 5, fill="lime", outline="lime")
-                else: self.create_rectangle(x, y, x + 5, y + 5, fill=fill_color, outline=fill_color)
 
 
     def load_settings(self) -> None:
