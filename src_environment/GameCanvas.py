@@ -30,9 +30,10 @@ class GameCanvas(Canvas):
                 if 0 <= color_value < 30: fill_colour = 'seagreen3'
                 elif 30 <= color_value < 60: fill_colour = 'seagreen2'
                 elif 60 <= color_value < 90: fill_colour = 'seagreen1'
-                elif 90 <= color_value < 100: fill_colour = 'cornsilk2'
-                elif 100 <= color_value < 140: fill_colour = 'yellow green'
-                else: fill_colour = 'olive drab'
+                elif 90 <= color_value < 92: fill_colour = 'NavajoWhite3'
+                elif 92 <= color_value < 100: fill_colour = 'NavajoWhite2'
+                elif 100 <= color_value < 150: fill_colour = 'olive drab'
+                else: fill_colour = 'dark olive green'
 
                 # Create the rectangle with the determined fill color
                 self.create_rectangle(x, y, x + 5, y + 5, fill=fill_colour, outline=fill_colour)
