@@ -1,8 +1,10 @@
 from tkinter import *
+import numpy as np
 import configparser
 from src_terrain_generation.bblyn_generate_heightmap import generate_heightmap
 from src_terrain_generation.bblyn_generate_forestmap import generate_forestmap
 from src_terrain_generation.bblyn_generate_rockmap import generate_rockmap
+from src_terrain_generation.bblyn_generate_mountain import generate_mountain
 
 class GameCanvas(Canvas):
 
@@ -19,8 +21,11 @@ class GameCanvas(Canvas):
         shape = (self.width, self.height)
         # Generate Perlin noise
         normalized_map = generate_heightmap((self.width, self.height))
+
+        normalized_map = generate_mountain(normalized_map, 150)
         forest_map = generate_forestmap(normalized_map)
         rockmap = generate_rockmap(normalized_map)
+
 
         for y in range(0, self.height, 5):
             for x in range(0, self.width, 5):
@@ -35,7 +40,10 @@ class GameCanvas(Canvas):
                 elif 90 <= color_value < 92: fill_colour = 'NavajoWhite3'
                 elif 92 <= color_value < 100: fill_colour = 'NavajoWhite2'
                 elif 100 <= color_value < 150: fill_colour = 'olive drab'
-                else: fill_colour = 'dark olive green'
+                elif 150 <= color_value < 255: fill_colour = 'dark olive green'
+                elif 255 <= color_value < 315: fill_colour = 'NavajoWhite3'
+                elif 315 <= color_value < 400: fill_colour = 'NavajoWhite4'
+                else: fill_colour = 'sienna4'
 
                 # Create the rectangle with the determined fill color
                 self.create_rectangle(x, y, x + 5, y + 5, fill=fill_colour, outline=fill_colour)
