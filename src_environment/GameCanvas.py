@@ -2,6 +2,7 @@ from tkinter import *
 import configparser
 from src_terrain_generation.bblyn_generate_heightmap import generate_heightmap
 from src_terrain_generation.bblyn_generate_forestmap import generate_forestmap
+from src_terrain_generation.bblyn_generate_rockmap import generate_rockmap
 
 class GameCanvas(Canvas):
 
@@ -19,6 +20,7 @@ class GameCanvas(Canvas):
         # Generate Perlin noise
         normalized_map = generate_heightmap((self.width, self.height))
         forest_map = generate_forestmap(normalized_map)
+        rockmap = generate_rockmap(normalized_map)
 
         for y in range(0, self.height, 5):
             for x in range(0, self.width, 5):
@@ -27,9 +29,9 @@ class GameCanvas(Canvas):
 
                 fill_colour = 'red'
                 # Define color ranges
-                if 0 <= color_value < 30: fill_colour = 'seagreen3'
-                elif 30 <= color_value < 60: fill_colour = 'seagreen2'
-                elif 60 <= color_value < 90: fill_colour = 'seagreen1'
+                if 0 <= color_value < 30: fill_colour = 'cyan3'
+                elif 30 <= color_value < 60: fill_colour = 'cyan2'
+                elif 60 <= color_value < 90: fill_colour = 'aquamarine'
                 elif 90 <= color_value < 92: fill_colour = 'NavajoWhite3'
                 elif 92 <= color_value < 100: fill_colour = 'NavajoWhite2'
                 elif 100 <= color_value < 150: fill_colour = 'olive drab'
@@ -41,8 +43,9 @@ class GameCanvas(Canvas):
 
         for y in range(0, self.height, 5):
             for x in range(0, self.width, 5):
-                if(forest_map[x, y]): self.create_oval(x-2, y-2, x+7, y+7, fill="dark green", outline="black")
-                
+                if(forest_map[x, y]): self.create_oval(x-2, y-2, x+7, y+7, fill="forest green", outline="dark green", width = 4)
+                if(rockmap[x, y]):
+                    self.create_oval(x-2, y-2, x+7, y+7, fill="PeachPuff3", outline="seashell4", width = 2)
 
 
     def load_settings(self) -> None:
