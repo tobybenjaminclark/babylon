@@ -17,6 +17,8 @@ def generate_resource_map(heightmap, forestmap, rockmap):
         probabilities = np.exp(-distances / cluster_radius) * cluster_density
         probabilities *= valid_heights
 
-        forestmap |= (np.random.rand(*forestmap.shape) < probabilities.reshape(forestmap.shape)).astype(int)
+        forestmap |= np.where(np.random.rand(*forestmap.shape) < probabilities.reshape(forestmap.shape), np.random.randint(1, 51), 0)
+
+
 
     return forestmap
