@@ -7,6 +7,7 @@ from src_terrain_generation.bblyn_generate_rockmap import generate_rockmap
 from src_terrain_generation.bblyn_generate_mountain import generate_mountain
 from src_terrain_generation.bblyn_generate_resourcemap import generate_resource_map
 
+
 # Define color ranges
 colour_ranges = [
     (0, 'cyan3'),
@@ -28,14 +29,23 @@ colour_ranges = [
     (520, '#ff3300')
 ]
 
+from PIL import ImageGrab
+
+
+def save_as_png(widget, file_name):
+    ImageGrab.grab(bbox=(
+        widget.winfo_rootx(),
+        widget.winfo_rooty(),
+        widget.winfo_rootx() + widget.winfo_width(),
+        widget.winfo_rooty() + widget.winfo_height()
+    )).save(file_name)
+
+
 class GameCanvas(Canvas):
 
     def __init__(self, *args, **kwargs) -> None:
         self.load_settings()
         super().__init__(width=self.width, height=self.height, bg="black", *args, **kwargs)
-
-        self.render_map()
-
         self.update()
 
     def render_map(self) -> None:
@@ -66,17 +76,25 @@ class GameCanvas(Canvas):
                         break
 
                 # Create the rectangle with the determined fill color
-                self.create_rectangle(x, y, x + 5, y + 5, fill=fill_colour, outline=fill_colour)
+                self.create_rectangle(x, y, x + 10, y + 10, fill=fill_colour, outline=fill_colour)
+        
+        for y in range(0, self.height, 5):
+            for x in range(0, self.width, 5):
+                if(rockmap[x, y]):self.create_oval(x-2, y-2, x+7, y+7, fill="PeachPuff3", outline="seashell4", width = 2)
 
+        self.update()
+        save_as_png(self, "temp.png")
+        self.delete("all")
+        self.update()
+
+        self.img = PhotoImage(file="temp.png")
+        self.create_image(0, 0, anchor=NW, image=self.img)
 
 
         for y in range(0, self.height, 5):
             for x in range(0, self.width, 5):
                 if(forest_map[x, y]): self.create_oval(x-2, y-2, x+7, y+7, fill="forest green", outline="dark green", width = 4)
-                if(rockmap[x, y]):
-                    self.create_oval(x-2, y-2, x+7, y+7, fill="PeachPuff3", outline="seashell4", width = 2)
-                elif(resources[x, y] > 0):
-                    self.create_oval(x-2, y-2, x+7, y+7, fill="yellow", outline="red", width = 2)
+                if(resources[x, y] > 0): self.create_oval(x-2, y-2, x+7, y+7, fill="yellow", outline="red", width = 2)
 
 
     def load_settings(self) -> None:

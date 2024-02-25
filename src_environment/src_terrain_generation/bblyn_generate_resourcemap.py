@@ -1,11 +1,12 @@
 import numpy as np
 
+# Generates a resource map, where the corresponding ID 
 def generate_resource_map(heightmap, forestmap, rockmap):
     heightmap_array = np.array(heightmap)
     forestmap = np.zeros_like(heightmap_array, dtype=int)
 
     num_clusters = 6
-    cluster_density = 0.2
+    cluster_density = 0.1
     cluster_radius = 80
 
     for _ in range(num_clusters):

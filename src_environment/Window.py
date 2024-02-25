@@ -2,6 +2,11 @@ from GameCanvas import *
 from tkinter import *
 import configparser
 
+def move(master, canvas, object) -> None:
+    canvas.move(object, 0.5, 0)
+    master.after(1, lambda: move(master, canvas, object))
+    
+
 class Window(Tk):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -16,7 +21,22 @@ class Window(Tk):
         
         self.bind("<Escape>", self.quit_fullscreen)
         self.bind(self.fullscreen_key, self.toggle_fullscreen)
+
+
+        self.update()
+
+        self.canvas.render_map()
+
+        self.x = 100
+        self.y = 100
+        self.tribe = self.canvas.create_oval(self.x, self.y, self.x + 10, self.y + 10, fill = "orange")
+        
+        self.after(1, lambda: move(self, self.canvas, self.tribe))
+
         self.mainloop()
+
+    
+
 
     def load_settings(self) -> None:
         config: configparser.ConfigParser = configparser.ConfigParser()
