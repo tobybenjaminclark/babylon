@@ -20,7 +20,7 @@ def move_tribe(master, canvas, tribe_object, target_x, target_y, speed=1):
         new_x = current_x + dx * distance_ratio
         new_y = current_y + dy * distance_ratio
 
-        canvas.coords(tribe_object, new_x, new_y, new_x + 10, new_y + 10)
+        canvas.coords(tribe_object, new_x, new_y, new_x + 5, new_y + 5)
 
         master.after(10, lambda: move_tribe(master, canvas, tribe_object, target_x, target_y, speed))
     else:
@@ -40,7 +40,11 @@ class Window(Tk):
         self.geometry("{0}x{1}+0+0".format(self.winfo_screenwidth(), self.winfo_screenheight()))
         self.canvas:GameCanvas
         self.canvas = GameCanvas(self)
-        self.canvas.pack()
+        self.canvas.pack(side="top", pady = 20)
+
+        # Create the second canvas and pack it to the bottom
+        canvas2 = Canvas(self, width = 1200, height = 200, bg='white')
+        canvas2.pack(side="top")
         
         self.bind("<Escape>", self.quit_fullscreen)
         self.bind(self.fullscreen_key, self.toggle_fullscreen)
@@ -56,7 +60,7 @@ class Window(Tk):
         for _ in range(300):
             x = random.randint(0, self.winfo_screenwidth() - 10)
             y = random.randint(0, self.winfo_screenheight() - 10)
-            tribe = self.canvas.create_oval(x, y, x + 10, y + 10, fill="orange")
+            tribe = self.canvas.create_oval(x, y, x + 5, y + 5, fill="aqua", outline = "black", width=2)
             self.tribes.append(tribe)
 
             # Start the movement of each tribe towards a random location

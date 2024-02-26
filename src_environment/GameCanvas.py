@@ -2,8 +2,7 @@ from tkinter import *
 import numpy as np
 import configparser
 from src_terrain_generation.bblyn_generate_heightmap import generate_heightmap
-from src_terrain_generation.bblyn_generate_forestmap import generate_forestmap
-from src_terrain_generation.bblyn_generate_rockmap import generate_rockmap
+from src_terrain_generation.bblyn_generate_forestmap import generate_forestmap, generate_bushmap, generate_rockmap
 from src_terrain_generation.bblyn_generate_mountain import generate_mountain
 from src_terrain_generation.bblyn_generate_resourcemap import generate_resource_map
 
@@ -57,12 +56,13 @@ class GameCanvas(Canvas):
 
         normalized_map = generate_mountain(normalized_map, 250)
         forest_map = generate_forestmap(normalized_map)
+        bush_map = generate_bushmap(normalized_map)
         rockmap = generate_rockmap(normalized_map)
         resources = generate_resource_map(normalized_map, forest_map, rockmap)
 
 
-        for y in range(0, self.height, 5):
-            for x in range(0, self.width, 5):
+        for y in range(0, self.height, 1):
+            for x in range(0, self.width, 1):
                 # Use the Perlin noise values to determine the color
                 color_value = int(normalized_map[x, y])
 
@@ -76,11 +76,12 @@ class GameCanvas(Canvas):
                         break
 
                 # Create the rectangle with the determined fill color
-                self.create_rectangle(x, y, x + 10, y + 10, fill=fill_colour, outline=fill_colour)
+                self.create_rectangle(x, y, x + 1, y + 1, fill=fill_colour, outline=fill_colour)
         
-        for y in range(0, self.height, 5):
-            for x in range(0, self.width, 5):
-                if(rockmap[x, y]):self.create_oval(x-2, y-2, x+7, y+7, fill="PeachPuff3", outline="seashell4", width = 2)
+        for y in range(0, self.height, 2):
+            for x in range(0, self.width, 2):
+                if(rockmap[x, y]):self.create_oval(x-1, y-1, x+1, y+1, fill="PeachPuff3", outline="seashell4", width = 1)
+                if(bush_map[x, y]): self.create_oval(x-2, y-2, x+2, y+2, fill="#20a115", outline="#167d0c", width = 1)
 
         self.update()
         save_as_png(self, "temp.png")
@@ -93,8 +94,8 @@ class GameCanvas(Canvas):
 
         for y in range(0, self.height, 5):
             for x in range(0, self.width, 5):
-                if(forest_map[x, y]): self.create_oval(x-2, y-2, x+7, y+7, fill="forest green", outline="dark green", width = 4)
-                if(resources[x, y] > 0): self.create_oval(x-2, y-2, x+7, y+7, fill="yellow", outline="red", width = 2)
+                if(forest_map[x, y]): self.create_oval(x-2, y-2, x+5, y+5, fill="forest green", outline="dark green", width = 2)
+                if(resources[x, y] > 0): self.create_oval(x, y, x+5, y+5, fill="yellow", outline="red", width = 2)
 
 
     def load_settings(self) -> None:
