@@ -78,10 +78,15 @@ class GameCanvas(Canvas):
                 # Create the rectangle with the determined fill color
                 self.create_rectangle(x, y, x + 1, y + 1, fill=fill_colour, outline=fill_colour)
         
-        for y in range(0, self.height, 2):
-            for x in range(0, self.width, 2):
-                if(rockmap[x, y]):self.create_oval(x-1, y-1, x+1, y+1, fill="PeachPuff3", outline="seashell4", width = 1)
+        for y in range(0, self.height, 1):
+            for x in range(0, self.width, 1):
+                if(rockmap[x, y]):self.create_oval(x-2, y-2, x+1, y+1, fill="PeachPuff3", outline="seashell4", width = 1)
+        for y in range(0, self.height, 1):
+            for x in range(0, self.width, 1):               
                 if(bush_map[x, y]): self.create_oval(x-2, y-2, x+2, y+2, fill="#20a115", outline="#167d0c", width = 1)
+        for y in range(0, self.height, 1):
+            for x in range(0, self.width, 1):        
+                if(forest_map[x, y]): self.create_oval(x-2, y-2, x+5, y+5, fill="forest green", outline="dark green", width = 2)
 
         self.update()
         save_as_png(self, "temp.png")
@@ -94,7 +99,6 @@ class GameCanvas(Canvas):
 
         for y in range(0, self.height, 5):
             for x in range(0, self.width, 5):
-                if(forest_map[x, y]): self.create_oval(x-2, y-2, x+5, y+5, fill="forest green", outline="dark green", width = 2)
                 if(resources[x, y] > 0): self.create_oval(x, y, x+5, y+5, fill="yellow", outline="red", width = 2)
 
 

@@ -16,7 +16,8 @@ def generate_booleanmap(heightmap, num_clusters: int, cluster_density: float, cl
         rockmap |= np.random.rand(*rockmap.shape) < probabilities.reshape(rockmap.shape)
     return rockmap
 
-def generate_rockmap(heightmap) -> np.array: return generate_booleanmap(heightmap, 6, 0.1, 150, 80, 95)
-def generate_forestmap(heightmap) -> np.array: return generate_booleanmap(heightmap, 6, 0.1, 110, 110, 230)
-def generate_bushmap(heightmap) -> np.array: return generate_booleanmap(heightmap, 6, 0.15, 70, 90, 300)
+# Partial Function Applications to generate features, using booleanmap as a base.
+def generate_rockmap(heightmap) -> np.array: return generate_booleanmap(heightmap, 6, 0.05, 150, 80, 95)
+def generate_forestmap(heightmap) -> np.array: return generate_booleanmap(heightmap, 6, 0.01, 110, 110, 230)
+def generate_bushmap(heightmap) -> np.array: return generate_booleanmap(heightmap, 6, 0.06, 70, 90, 300)
 
