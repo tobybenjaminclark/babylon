@@ -1,0 +1,10 @@
+
+#macro BUSH_HARD 1
+#macro BUSH_HARD_SMALL 2
+#macro BUSH_SOFT 3
+#macro BUSH_SOFT_SMALL 4
+#macro BUSH_RED 5
+#macro BUSH_PINK 6
+#macro BUSH_ORANGE 7
+#macro CACTUS_BIG 8
+#macro CACTUS_SMALL 9

@@ -39,6 +39,7 @@
     {"name":"spr_fern_soft_small","order":14,"path":"sprites/spr_fern_soft_small/spr_fern_soft_small.yy",},
     {"name":"spr_bush_orange","order":4,"path":"sprites/spr_bush_orange/spr_bush_orange.yy",},
     {"name":"o_cam","order":1,"path":"objects/o_cam/o_cam.yy",},
+    {"name":"macros","order":4,"path":"scripts/macros/macros.yy",},
     {"name":"spr_grasstile","order":22,"path":"sprites/spr_grasstile/spr_grasstile.yy",},
     {"name":"spr_stump_big","order":2,"path":"sprites/spr_stump_big/spr_stump_big.yy",},
     {"name":"stringFormat","order":8,"path":"scripts/stringFormat/stringFormat.yy",},
