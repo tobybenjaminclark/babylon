@@ -1,6 +1,9 @@
 
-global.NUMBER_OF_TRIBES = 5
+global.NUMBER_OF_TRIBES = 180;
 
+#macro TELEPORT true
+
+/* Items */
 #macro BUSH_HARD 1
 #macro BUSH_HARD_SMALL 2
 #macro BUSH_SOFT 3
@@ -16,8 +19,15 @@ global.NUMBER_OF_TRIBES = 5
 #macro FERN_SOFT 12
 #macro FERN_SOFT_SMALL 13
 
+/* Actions */
+#macro CONSUME 1
+
+/* Enum */
 enum TRIBESMAN_STATES
 {
 	WANDER,
 	GATHER
 }
+
+/* Control Variables */
+global.STARTING_TRIBESMEN_COUNT = 1;

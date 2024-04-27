@@ -3,25 +3,23 @@
 
 // WASD controller in GameMaker Studio 2
 
-// Define movement speed
-movement_speed = 10;
+//Check if middle button was clicked
+//get current camera position of x and y
+var cx = camera_get_view_x(view_camera[0]);
+var cy = camera_get_view_y(view_camera[0]);
+//speed you want to control the camera
+var spd = 4;
+//control inputs that move left right up and down
+var hori = (keyboard_check(ord("D"))-keyboard_check(ord("A"))) * spd;
+var vert = (keyboard_check(ord("S"))-keyboard_check(ord("W"))) * spd;
+//set/move the camera
 
-// Check for input and move the player accordingly
-if (keyboard_check(ord("W"))) {
-    y -= movement_speed; // Move up when W is pressed
-}
+var nx = cx+hori;
+var ny = cy+vert;
 
-if (keyboard_check(ord("S"))) {
-    y += movement_speed; // Move down when S is pressed
-}
-
-if (keyboard_check(ord("A"))) {
-    x -= movement_speed; // Move left when A is pressed
-}
-
-if (keyboard_check(ord("D"))) {
-    x += movement_speed; // Move right when D is pressed
-}
+nx = clamp(nx, 0, room_width - camera_get_view_width(view_camera[0]));
+ny = clamp(ny, 0, room_height - camera_get_view_height(view_camera[0]));
+camera_set_view_pos(view_camera[0],nx,ny);
 
 
 /// obj_camera Step Event
@@ -49,6 +47,7 @@ var vpos_y = camera_get_view_y(view_camera[0]);
 //change coordinates of camera so zoom is centered
 var new_x = lerp(vpos_x,vpos_x+(view_w - zoom_level * default_zoom_width)/2, rate);
 var new_y = lerp(vpos_y,vpos_y+(view_h - zoom_level * default_zoom_height)/2, rate);
+
 
 
 

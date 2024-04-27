@@ -4,7 +4,7 @@ function generate_tribes(_count)
 {
 	// Parameters
 	var num_points = _count; // Number of points or tribes
-	var radius = room_width div 3;   // Radius of the circle on which points will be placed
+	var radius = room_width div 3.5;   // Radius of the circle on which points will be placed
 
 	// Center of the room
 	var center_x = room_width / 2;

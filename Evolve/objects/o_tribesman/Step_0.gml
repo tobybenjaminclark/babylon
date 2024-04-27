@@ -1,6 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+image_blend = parent.tribe_color;
+
 if state == TRIBESMAN_STATES.WANDER
 {
 	switch (dir) {
@@ -23,14 +25,10 @@ if state == TRIBESMAN_STATES.WANDER
 	    dir = irandom_range(0, 3);
 	}
 	
-	if (irandom(50) == 1) state = TRIBESMAN_STATES.GATHER;
+	if (irandom(5) == 1) state = TRIBESMAN_STATES.GATHER;
 }
 else if state == TRIBESMAN_STATES.GATHER
 {
-	/* Gather resources */
-	// Find the nearest o_bush instance
-	dir = irandom_range(0, 3);
-	
 	var nearest_bush = instance_nearest(x, y, o_bush);
 
 	// Move towards the nearest o_bush instance
@@ -42,12 +40,36 @@ else if state == TRIBESMAN_STATES.GATHER
 		
 		x += x_move;
 		y += y_move;
+		if(TELEPORT)
+		{
+			x = nearest_bush.x;
+			y = nearest_bush.y;
+		}
 		
 		// Check if the object has reached the bush
-		if (point_distance(x, y, nearest_bush.x, nearest_bush.y) <= distance_threshold)
+		if (point_distance(x, y, nearest_bush.x, nearest_bush.y) <= distance_threshold || TELEPORT)
 		{
-	        instance_destroy(nearest_bush);
-			state = TRIBESMAN_STATES.WANDER;
+			_id = nearest_bush.o_id;
+			_chance = get_action(parent.decisions, _id, CONSUME)
+			
+			if (random(1) < _chance)
+			{
+				if (_id == BUSH_RED)
+				{
+					parent.tribesmen_count = parent.tribesmen_count - 1;
+					instance_destroy(self);
+					return;
+				}
+				else
+				{
+					state = TRIBESMAN_STATES.WANDER;
+					instance_destroy(nearest_bush);
+				}
+			}
+			else
+			{
+				state = TRIBESMAN_STATES.WANDER;
+			}
 		}
 	}
 	else

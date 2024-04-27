@@ -3,7 +3,8 @@
 function get_random_color()
 {
 	// Check if the color list has been created and is stored in a global variable
-	if (!variable_global_exists("color_list")) {
+	if (!variable_global_exists("color_list") || global.color_list == undefined)
+	{
 	    // Create the color list if it does not exist
 	    global.color_list = ds_list_create();
 	    ds_list_add(global.color_list, c_red);
@@ -27,7 +28,7 @@ function get_random_color()
 
 	// Handle the case where all colors have been removed
 	if (ds_list_empty(global.color_list)) {
-	    return "No more colors available";  // Return this message if no colors are left
+	    return c_black;  // Return this message if no colors are left
 	}
 
 	// Select a random index in the list
