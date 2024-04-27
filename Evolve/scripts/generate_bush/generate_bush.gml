@@ -1,6 +1,7 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
+/* Gets the sprite for a specific bush */
 function get_bush_sprite(_bush_id)
 {
 	switch (_bush_id)
@@ -22,6 +23,7 @@ function get_bush_sprite(_bush_id)
 	}
 }
 
+/* Generates a bush at a specified x/y position */
 function generate_bush(_x_pos, _y_pos)
 {
 	var bush_id = irandom_range(1, 9);
@@ -30,7 +32,7 @@ function generate_bush(_x_pos, _y_pos)
 	inst.o_id = bush_id;
 }
 
-
+/* Generates grass at a specified x/y position */
 function generate_grass(_x_pos, _y_pos)
 {
 	var bush_id = irandom_range(10, 13);
