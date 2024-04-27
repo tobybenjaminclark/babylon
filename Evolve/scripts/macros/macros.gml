@@ -8,3 +8,8 @@
 #macro BUSH_ORANGE 7
 #macro CACTUS_BIG 8
 #macro CACTUS_SMALL 9
+
+#macro FERN_HARD 10
+#macro FERN_HARD_SMALL 11
+#macro FERN_SOFT 12
+#macro FERN_SOFT_SMALL 13

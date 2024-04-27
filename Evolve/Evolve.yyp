@@ -50,7 +50,6 @@
     {"id":{"name":"o_tribesman","path":"objects/o_tribesman/o_tribesman.yy",},},
     {"id":{"name":"generate_environment","path":"scripts/generate_environment/generate_environment.yy",},},
     {"id":{"name":"o_bush","path":"objects/o_bush/o_bush.yy",},},
-    {"id":{"name":"o_grass","path":"objects/o_grass/o_grass.yy",},},
     {"id":{"name":"rm_main","path":"rooms/rm_main/rm_main.yy",},},
     {"id":{"name":"generate_bush","path":"scripts/generate_bush/generate_bush.yy",},},
     {"id":{"name":"o_map_generation","path":"objects/o_map_generation/o_map_generation.yy",},},

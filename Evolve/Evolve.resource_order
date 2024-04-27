@@ -31,7 +31,6 @@
     {"name":"o_room_manager","order":4,"path":"objects/o_room_manager/o_room_manager.yy",},
     {"name":"o_tribesman","order":5,"path":"objects/o_tribesman/o_tribesman.yy",},
     {"name":"generate_environment","order":2,"path":"scripts/generate_environment/generate_environment.yy",},
-    {"name":"o_grass","order":2,"path":"objects/o_grass/o_grass.yy",},
     {"name":"generate_bush","order":3,"path":"scripts/generate_bush/generate_bush.yy",},
     {"name":"o_map_generation","order":3,"path":"objects/o_map_generation/o_map_generation.yy",},
     {"name":"spr_bush_hard","order":7,"path":"sprites/spr_bush_hard/spr_bush_hard.yy",},
