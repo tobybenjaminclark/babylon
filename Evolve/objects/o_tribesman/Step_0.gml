@@ -21,7 +21,7 @@ if state == TRIBESMAN_STATES.WANDER
 	}
 
 	// Change direction randomly
-	if (irandom_range(0, 30) == 1){ // 5% chance to change direction every step
+	if (irandom_range(0, 4) == 1){ // 5% chance to change direction every step
 	    dir = irandom_range(0, 3);
 	}
 	
@@ -54,7 +54,7 @@ else if state == TRIBESMAN_STATES.GATHER
 			
 			if (random(1) < _chance)
 			{
-				if (_id == BUSH_RED)
+				if (_id == BUSH_RED || _id == BUSH_ORANGE)
 				{
 					parent.tribesmen_count = parent.tribesmen_count - 1;
 					instance_destroy(self);
@@ -62,18 +62,21 @@ else if state == TRIBESMAN_STATES.GATHER
 				}
 				else
 				{
+					dir = irandom_range(0, 3);
 					state = TRIBESMAN_STATES.WANDER;
 					instance_destroy(nearest_bush);
 				}
 			}
 			else
 			{
+				dir = irandom_range(0, 3);
 				state = TRIBESMAN_STATES.WANDER;
 			}
 		}
 	}
 	else
 	{
+		dir = irandom_range(0, 3);
 		state = TRIBESMAN_STATES.WANDER;
 	}
 }

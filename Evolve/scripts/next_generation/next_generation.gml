@@ -28,8 +28,6 @@ function copyStruct(struct)
 
 function next_generation()
 {
-	ds_list_destroy(global.color_list);
-	global.color_list = undefined;
 	
 	var mutation_range = 0.2;
 	
