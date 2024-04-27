@@ -1,4 +1,6 @@
 
+global.NUMBER_OF_TRIBES = 5
+
 #macro BUSH_HARD 1
 #macro BUSH_HARD_SMALL 2
 #macro BUSH_SOFT 3
